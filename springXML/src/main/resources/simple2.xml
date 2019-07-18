@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd" >
+        <bean id="main" class="com.example.demo.beanfactory.MainBean">
+        	<!-- <property name="bean" ref="instance"></property> -->
+        	<property name="bean" ref="factoryBean"></property>
+        </bean>
+        
+        <bean id="factoryBean" class="com.example.demo.beanfactory.MyFactoryBean"></bean>
+        <bean id="factory" class="com.example.demo.beanfactory.MyBeanFactory"></bean>
+        <bean id="instance" factory-bean="factory" factory-method="getNonInstance"></bean>
+        <!--  
+        <bean id="instance" class="com.example.demo.beanfactory.MyBeanFactory" factory-method="getInstance">
+        	<constructor-arg ref="..."></constructor-arg>
+        </bean>
+        -->
+        
+        <bean id="lookup-method" class="com.example.demo.beanfactory.MainBean">
+        	<lookup-method name="getBean" bean="prototype"/>
+        </bean>
+        <bean id="beanFactoryAware" class="com.example.demo.beanfactory.MainBean">
+		</bean>
+		
+		
+		<bean id="prototype" class="com.example.demo.beanfactory.BeanFactoryTry" scope="prototype"></bean>
+		
+		<bean id="objectFactory" class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+			<property name="targetBeanName">
+				<idref bean="prototype"/>
+			</property>
+		</bean>
+		<bean id="objectFactoryMainBean"  class="com.example.demo.beanfactory.MainBeanObjectFactory">
+			<property name="objectFactory" ref="objectFactory"></property>
+		</bean>
+		
+		<bean id="replacer" class="com.example.demo.beanfactory.MyMethodReplacer"></bean>
+		<bean id="replaceAMethod" class="com.example.demo.xmlparse.Aclass">
+			<property name="a" value="name of A"></property>
+			<property name="b" value="999"></property>
+			<replaced-method name="say" replacer="replacer"></replaced-method>
+		</bean>
+		
+</beans>

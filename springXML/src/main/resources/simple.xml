@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+	      <description></description>
+	      <import resource="simple2.xml"/> 
+	     
+	      <alias name="a" alias="x"/>
+	      <bean id="a" class="com.example.demo.xmlparse.Aclass">
+	      	<constructor-arg >
+	      		<value>1</value>
+	      	</constructor-arg>
+	      	<constructor-arg>
+	      		<value>2</value>
+	      	</constructor-arg>
+	      </bean>
+	       <!--  
+	      <bean id="property" class="com.example.demo.xmlparse.Aclass">
+	      	<property name="a" value="2"></property>
+	      	<property name="b" value="1"></property>
+	      	<property name="c" ref="a"></property>
+	      </bean>
+	      
+	      <bean id="idreftry" class="com.example.demo.xmlparse.ABclass">
+	      	<property name="a">
+	      		<idref bean="property"/>
+	      	</property>
+	      </bean>
+	      
+	      <bean id="innerBeanTry" class="com.example.demo.xmlparse.ABclass">
+	      	<constructor-arg>
+	      		<bean class="com.example.demo.xmlparse.Aclass">
+	      			<property name="a" value="2"></property>
+	      			<property name="b" value="1"></property>
+	      		</bean>
+	      	</constructor-arg>
+	      </bean>
+	      
+	      <bean id="listTry" class="com.example.demo.xmlparse.ABclass">
+	      	<property name="b">
+	      		<list>
+	      			<value>1</value>
+	      			<ref bean="property"/>
+	      			<bean class="com.example.demo.xmlparse.Aclass">
+	      				<property name="a" value="12"></property>
+	      				<property name="b" value="11"></property>
+	      			</bean>
+	      		</list>
+	      	</property>
+	      </bean>
+	      
+	      <bean id="setTry" class="com.example.demo.xmlparse.ABclass">
+	      	<property name="c">
+	      		<set>
+	      			<value>1</value>
+	      			<ref bean="property"/>
+	      			<bean class="com.example.demo.xmlparse.Aclass">
+	      				<property name="a" value="12"></property>
+	      				<property name="b" value="11"></property>
+	      			</bean>
+	      		</set>
+	      	</property>
+	      </bean>
+	      
+	      <bean id="mapTry" class="com.example.demo.xmlparse.ABclass">
+	      	<property name="d">
+	      		<map>
+	      			<entry key="first key">
+	      				<value>first value</value>
+	      			</entry>
+	      			<entry key="second key">
+	      				<ref bean="property"/>
+	      			</entry>
+	      			<entry key-ref="property" value="property bean"></entry>
+	      			<entry key-ref="a" value-ref="property"></entry>
+	      		</map>
+	      	</property>
+	      </bean>
+	      
+	      <bean id="propertiesTry" class="com.example.demo.xmlparse.ABclass">
+	      	<property name="e">
+	      		<props>
+	      			<prop key="author1">作者1</prop>
+	      			<prop key="author2">作者2</prop>
+	      			<prop key="author3">作者3</prop>
+	      		</props>
+	      	</property>
+	      </bean>
+	      
+	      
+	      <bean id="dependsOnTry" class="com.example.demo.xmlparse.ABclass" depends-on="property"></bean>
+	      --> 
+	      
+	      <bean id="autoByName" class="com.example.demo.xmlparse.Bclass" autowire="byName" lazy-init="true"></bean>
+	      
+	      <bean id="autoByType" class="com.example.demo.xmlparse.Bclass" autowire="byType"></bean>
+	      
+	      <bean id="autoByConstructor" class="com.example.demo.xmlparse.Bclass" autowire="constructor"></bean>
+	      
+	      <bean id="parentBean" class="com.example.demo.xmlparse.Bclass">
+	      	<property name="a" ref="a"></property>
+	      	<property name="b" value="223344"></property>
+	      </bean>
+	      
+	      <bean id="abstractTry" abstract="true">
+	      	<property name="a" ref="a"></property>
+	      	<property name="b" value="223344"></property>
+	      </bean>
+	      <bean id="abstractChildren1" class="com.example.demo.xmlparse.Cclass" parent="abstractTry">
+	      		<property name="b" value="this is children C"></property>
+	      </bean>
+	      <bean id="abstractChildren2" class="com.example.demo.xmlparse.Dclass" parent="abstractTry">
+	      		<property name="b" value="this is children D"></property>
+	      </bean>
+	      <bean id="children1" class="com.example.demo.xmlparse.Cclass" parent="parentBean">
+	      	<property name="b" value="this is children C"></property>
+	      </bean>
+	      
+	      <bean id="children2" class="com.example.demo.xmlparse.Dclass" parent="parentBean">
+	      	<property name="b" value="this is children D"></property>
+	      </bean>
+	      
+	      <bean id="scopeDefineTry" class="com.example.demo.xmlparse.Bclass" scope="thread">
+	      	 <property name="a" ref="a"></property>
+	      	 <property name="b" value="我的自定义scopeBean"></property>
+	      </bean>
+	      
+	      
+	      
+</beans>
