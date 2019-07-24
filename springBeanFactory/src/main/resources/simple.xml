@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+        <!--  
+        <bean id="propertyHolder" class="com.example.demo.postprocess.MyPropertyHolderBean">
+        	<property name="username">
+        		<value>${java.version}</value>
+        	</property>
+        	<property name="password" value="${propertyHolder.password}"></property>
+        </bean>
+        -->
+        <bean id="overrideBean" class="com.example.demo.postprocess.MyPropertyOverrideBean">
+        	<property name="username">
+        		<value>工具人</value>
+        	</property>
+        	<property name="password">
+        		<value>简单的密码</value>
+        	</property>
+        </bean>
+        <bean id="replaceMethod" class="com.example.demo.replace.MyReplacePostProcess"></bean>
+        <bean id="dealWithReplace" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        	<property name="locations">
+        		<list>
+        			<value>propertyOverride.properties</value>
+        		</list>
+        	</property>
+        	<replaced-method name="convertPropertyValue" replacer="replaceMethod"></replaced-method>
+        </bean>
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        	<property name="locations">
+        		<list>
+        			<value>propertyHolder.properties</value>
+        		</list>
+        	</property>
+        	<replaced-method name="convertPropertyValue" replacer="replaceMethod"></replaced-method>
+        	<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_FALLBACK"></property> 
+        </bean>
+        
+        <bean id="dateEditor" class="com.example.demo.postprocess.DateEditorBean">
+        	<property name="date">
+        		<value>2019/1/1 11:11:11</value>
+        	</property>
+        </bean>
+</beans>
